@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Opcion } from '../security/opcion';
+import { Enlace } from '../security/opcion';
 import { TokenService } from '../security/token.service';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AppMaterialModule } from '../app.material.module';
@@ -16,10 +16,9 @@ import { CommonModule } from '@angular/common';
 export class MenuComponent implements OnInit {
 
   isLogged = false;
-  opcRegistro : Opcion[] = [];
-  opcConsulta : Opcion[] = [];
-  opcCRUD : Opcion[] = [];
-  opcTransacciones : Opcion[] = [];
+  opcCRUD : Enlace[] = [];
+  opcReportes : Enlace[] = [];
+  opcTransacciones : Enlace[] = [];
 
   constructor(private tokenService: TokenService) {
     console.log("MenuComponent >>> constructor >>> " + this.tokenService.getToken());
@@ -28,10 +27,9 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
     console.log("MenuComponent >>> ngOnInit >>> ");
 
-    this.opcRegistro = this.tokenService.getOpciones().filter( x => x.tipo === 1);
-    this.opcConsulta = this.tokenService.getOpciones().filter( x => x.tipo === 2);
-    this.opcCRUD = this.tokenService.getOpciones().filter( x => x.tipo === 3);
-    this.opcTransacciones = this.tokenService.getOpciones().filter( x => x.tipo === 4);
+    this.opcCRUD = this.tokenService.getOpciones().filter( x => x.tipo === 1);
+    this.opcReportes = this.tokenService.getOpciones().filter( x => x.tipo === 2);
+    this.opcTransacciones = this.tokenService.getOpciones().filter( x => x.tipo === 3);
 
     console.log("MenuComponent >>> ngOnInit >>> " + this.tokenService.getToken());
     if (this.tokenService.getToken()) {
