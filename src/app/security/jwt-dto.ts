@@ -1,9 +1,9 @@
-import { Opcion } from "./opcion";
+import { Enlace } from "./opcion";
 
 export class JwtDTO {
     token?: string;
     type?: string;
     nombreUsuario?: string;
     authorities?: string[];
-    opciones?: Opcion[];
+    opciones?: Enlace[];
 }
