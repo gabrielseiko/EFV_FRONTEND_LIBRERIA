@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-width: 600px;
+    min-height: 450px;
+}
+
+.container>* {
+    width: 100%;
+}
+
+.form {
+    display: flex;
+    padding-top: 6px;
+}
+
+.mat-form-field {
+    font-size: 16px;
+    flex-grow: 1;
+}
+.full-width {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+.div-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}

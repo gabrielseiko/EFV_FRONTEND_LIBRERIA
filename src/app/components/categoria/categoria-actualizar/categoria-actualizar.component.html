@@ -1,1 +1,40 @@
-<p>categoria-actualizar works!</p>
+<div class="container">
+    <form [formGroup]="formRegistrar">
+        <div class="mat-dialog-content">
+            <div class="row">
+                <mat-toolbar color="primary">
+                    <span>Actualizar Categoría</span>
+                </mat-toolbar>
+            </div>
+            <div class="row" style="margin-top: 3%">
+                <mat-form-field class="col-md-11">
+                    <mat-label>Descripcion</mat-label>
+                    <input matInput [(ngModel)]="categoria.descripcion" formControlName="validaDescripcion" />
+                    <mat-hint style="color: red" *ngIf="formRegistrar.controls.validaDescripcion.touched">
+                        <span *ngIf="formRegistrar.controls.validaDescripcion.hasError('required')">
+                            El Nombre es requerido
+                        </span>
+                        <span *ngIf="formRegistrar.controls.validaDescripcion.hasError('pattern')">
+                            El Nombre es de 3 a 45 caracteres
+                        </span>
+                        <span *ngIf="formRegistrar.controls.validaDescripcion.hasError('existeDescripcion')">
+                            La descripción ya existe
+                        </span>
+                    </mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div style="text-align: center; margin-top: 15px;">
+
+                <button mat-raised-button type="submit" color="primary" [disabled]="formRegistrar.invalid"
+                    [mat-dialog-close]="1" (click)="actualiza()"
+                    style="margin-right: 10px; margin-bottom: 10px;">Registrar
+                </button>
+                <button mat-button type="submit" (click)="salir()" [mat-dialog-close]="2"
+                    style="margin-left: 10px; margin-bottom: 10px;">Salir
+                </button>
+
+            </div>
+        </div>
+    </form>
+</div>

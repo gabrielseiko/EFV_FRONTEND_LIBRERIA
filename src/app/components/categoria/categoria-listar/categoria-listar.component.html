@@ -1,1 +1,51 @@
-<p>categoria-listar works!</p>
+<app-menu></app-menu>
+<div class="container">
+    <div class="row">
+        <mat-toolbar color="primary">
+            <span>Crud Categoria</span>
+        </mat-toolbar>
+    </div>
+    <div class="row">
+        <mat-form-field class="col-md-4">
+            <mat-label>Nombre de Categoría</mat-label>
+            <input matInput [(ngModel)]="filtro">
+        </mat-form-field>
+
+        <button (click)="refreshTable()" mat-raised-button type="button" color="primary"
+            style="width: 150px; margin-right: 3%">Filtrar</button>
+        <button (click)="openDialogRegistrar()" mat-raised-button type="button" color="primary"
+            style="width: 150px;">Registrar</button>
+    </div>
+    <div class="mat-elevation-z8" >
+        <table mat-table  [dataSource]="dataSource">
+            <ng-container matColumnDef="idCategoria">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>Código</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.idCategoria }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="descripcion">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>Descripción</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.descripcion}}</mat-cell>
+            </ng-container>
+    
+            <ng-container matColumnDef="acciones">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>&nbsp; Acciones</mat-header-cell>
+                <mat-cell *matCellDef="let aux; let i=index;">
+
+                    <button mat-icon-button color="accent" (click)="openDialogActualizar(aux)">
+                        <mat-icon aria-label="Edit">edit</mat-icon>
+                    </button>
+
+                    <button mat-icon-button color="accent" (click)="delete(aux)">
+                        <mat-icon aria-label="Delete">delete</mat-icon>
+                    </button>
+
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let aux; columns: displayedColumns"></mat-row>
+        </table>
+        <mat-paginator [pageSizeOptions]="[6,8,10]" showFirstLastButtons></mat-paginator>
+
+    </div>
+
+</div>

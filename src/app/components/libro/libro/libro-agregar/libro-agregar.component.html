@@ -1,1 +1,109 @@
-<p>libro-agregar works!</p>
+<div class="container">
+    <form [formGroup]="formRegistrar">
+        <div class="mat-dialog-content">
+            <div class="row">
+                <mat-toolbar color="primary">
+                    <span>Nuevo Libro</span>
+                </mat-toolbar>
+            </div>
+            <div class="row" style="margin-top: 3%">
+                <mat-form-field class="col-md-11">
+                    <mat-label>Titulo</mat-label>
+                    <input matInput [(ngModel)]="libro.titulo" formControlName="validaTitulo" />
+                    <mat-hint style="color: red" *ngIf="formRegistrar.controls.validaTitulo.touched">
+                        <span *ngIf="formRegistrar.controls.validaTitulo.hasError('required')">
+                            El título es requerido
+                        </span>
+                        <span *ngIf="formRegistrar.controls.validaTitulo.hasError('minlength')">
+                            El título es de 3 caracteres mínimo
+                        </span>
+                        <span *ngIf="formRegistrar.controls.validaTitulo.hasError('maxlength')">
+                            El título es de 45 caracteres máximo
+                        </span>
+                        <span *ngIf="formRegistrar.controls.validaTitulo.hasError('existeTitulo')">
+                            El título ya existe
+                        </span>
+                    </mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div class="row" style="margin-top: 3%">
+                <mat-form-field class="col-md-11">
+                    <mat-label>Descripción</mat-label>
+                    <textarea matInput [(ngModel)]="libro.descripcion" formControlName="validaDescripcion" ></textarea>
+                    <mat-hint style="color: red" *ngIf="formRegistrar.controls.validaDescripcion.touched">
+                        <span *ngIf="formRegistrar.controls.validaDescripcion.hasError('required')">
+                            La descripción es requerida
+                        </span>
+                        <span *ngIf="formRegistrar.controls.validaDescripcion.hasError('minlength')">
+                            La descripción es de 3 caracteres mínimo
+                        </span>
+                        <span *ngIf="formRegistrar.controls.validaDescripcion.hasError('maxlength')">
+                            La descripción es de 500 caracteres máximo
+                        </span>
+                    </mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div class="row" style="margin-top: 3%">
+                <mat-form-field class="col-md-11">
+                    <mat-label>Fecha de Publicación</mat-label>
+                    <input matInput placeholder="Ex. 1996-11-09" [(ngModel)]="libro.publicacion" formControlName="validaPublicacion" />
+                    <mat-hint style="color: red" *ngIf="formRegistrar.controls.validaPublicacion.touched">
+                        <span *ngIf="formRegistrar.controls.validaPublicacion.hasError('required')">
+                            La fecha de publicación es requerida
+                        </span>
+                        <span *ngIf="formRegistrar.controls.validaPublicacion.hasError('pattern')">
+                            La fecha de publicación es de formato yyyy-MM-dd
+                        </span>
+                    </mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div class="row" style="margin-top: 3%">
+                <mat-form-field class="col-md-11">
+                    <mat-label>URL de Imagen</mat-label>
+                    <input matInput placeholder="Ex. https://..." [(ngModel)]="libro.imagen" formControlName="validaImagen" />
+                    <mat-hint style="color: red" *ngIf="formRegistrar.controls.validaImagen.touched">
+                        <span *ngIf="formRegistrar.controls.validaImagen.hasError('required')">
+                            La url de la imagen es requerida
+                        </span>
+                        <span *ngIf="formRegistrar.controls.validaImagen.hasError('pattern')">
+                            La url de la imagen es de formato https://...
+                        </span>
+                    </mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div class="row" style="margin-top: 3%">
+                <mat-form-field class="col-md-11">
+                    <mat-label>Categoría</mat-label>
+                    <mat-select [(ngModel)]="libro.categoria!.idCategoria"
+                        formControlName="validaCategoria">
+                        <mat-option value="-1"> [Seleccione] </mat-option>
+                        <mat-option *ngFor="let x of lstCategoria" [value]="x.idCategoria">
+                            {{x.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaCategoria.touched">
+                        <span *ngIf="formRegistrar.controls.validaCategoria.hasError('min')">
+                            La categoría es requerida
+                        </span>
+                    </mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div style="text-align: center; margin-top: 15px;">
+
+                <button mat-raised-button type="submit" color="primary" [disabled]="formRegistrar.invalid"
+                    [mat-dialog-close]="1" (click)="registra()"
+                    style="margin-right: 10px; margin-bottom: 10px;">Registrar
+                </button>
+                <button mat-button type="submit" (click)="salir()" [mat-dialog-close]="2"
+                    style="margin-left: 10px; margin-bottom: 10px;">Salir
+                </button>
+
+            </div>
+        </div>
+    </form>
+</div>
