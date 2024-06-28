@@ -6,10 +6,9 @@ import { CategoriaListarComponent } from './components/categoria/categoria-lista
 import { LibroListarComponent } from './components/libro/libro/libro-listar/libro-listar.component';
 import { LibroReservaListarComponent } from './components/libro/libroReserva/libro-reserva-listar/libro-reserva-listar.component';
 import { LibroVentaListarComponent } from './components/libro/libroVenta/libro-venta-listar/libro-venta-listar.component';
-import { UsuarioListarComponent } from './components/usuario/usuario-listar/usuario-listar.component';
 import { ComentarioListarComponent } from './components/comentario/comentario-listar/comentario-listar.component';
-import { ClienteListarComponent } from './components/usuario/cliente/cliente-listar/cliente-listar.component';
-import { TrabajadorListarComponent } from './components/usuario/trabajador/trabajador-listar/trabajador-listar.component';
+import { ClienteListarComponent } from './components/cliente/cliente-listar/cliente-listar.component';
+import { TrabajadorListarComponent } from './components/trabajador/trabajador-listar/trabajador-listar.component';
 import { ReservaComponent } from './components/reserva/reserva/reserva.component';
 import { VentaComponent } from './components/venta/venta/venta.component';
 import { ReporteReservaComponent } from './components/reporte/reporte-reserva/reporte-reserva.component';
@@ -21,7 +20,6 @@ export const routes: Routes = [
     { path: 'verCrudLibro', component:LibroListarComponent},
     { path: 'verCrudLibroReserva', component:LibroReservaListarComponent},
     { path: 'verCrudLibroVenta', component:LibroVentaListarComponent},
-    { path: 'verCrudUsuario', component:UsuarioListarComponent},
     { path: 'verCrudComentario', component:ComentarioListarComponent},
     { path: 'verCrudCliente', component:ClienteListarComponent},
     { path: 'verCrudTrabajador', component:TrabajadorListarComponent},
