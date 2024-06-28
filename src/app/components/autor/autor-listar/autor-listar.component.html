@@ -1,1 +1,39 @@
-<p>autor-listar works!</p>
+<app-menu></app-menu>
+<div class="container">
+    <div class="row">
+        <mat-toolbar color="primary">
+            <span>Listado de Autores</span>
+        </mat-toolbar>
+     <button (click)="openDialogRegistrar()" mat-raised-button type="button" color="primary" style="width: 150px;">Registrar</button> 
+    </div>
+
+    <div class="row" style="margin-top: 3%">
+        <mat-table #table class="mat-cell" [dataSource]="dataSource">
+            <ng-container matColumnDef="idAutor">
+                <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.idAutor }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="nombreCompleto">
+                <mat-header-cell *matHeaderCellDef>Nombre Completo</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.nombreCompleto }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="acciones">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>&nbsp;</mat-header-cell>
+                <mat-cell *matCellDef="let aux; let i=index;">
+               
+                    <button mat-icon-button color="accent" (click)="openDialogActualizar(aux)" >
+                        <mat-icon aria-label="Edit">edit</mat-icon>
+                    </button>
+      
+                    <button mat-icon-button color="accent" (click)="delete(aux)" >
+                        <mat-icon aria-label="Delete">delete</mat-icon>
+                    </button>
+
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let aux; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator style="margin-top: 10%;"  [pageSizeOptions]="[6, 8, 10]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

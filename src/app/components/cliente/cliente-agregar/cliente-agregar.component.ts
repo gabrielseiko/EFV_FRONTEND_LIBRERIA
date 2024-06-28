@@ -67,7 +67,7 @@ export class ClienteAgregarComponent {
     const usuarioParaEnviar = { ...this.usuario };
     usuarioParaEnviar.fechaNac = moment(this.usuario.fechaNac).format('YYYY-MM-DD') as unknown as Date;
 
-    this.usuarioService.registrarTrabajador(usuarioParaEnviar).subscribe(
+    this.usuarioService.registrarCliente(usuarioParaEnviar).subscribe(
       x => {
         Swal.fire({ icon: 'info', title: 'Resultado del Registro', text: x.mensaje });
         this.resetForm(); // Limpia el formulario después de registrar
