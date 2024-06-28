@@ -63,7 +63,7 @@ export class CategoriaActualizarComponent {
   validaDescripcion(control: FormControl) {
     console.log(">>> validaDescripcion [inicio] " + control.value);
 
-    return this.categoriaService.validaDescripcionRegistra(control.value).pipe(
+    return this.categoriaService.validaDescripcionActualiza(control.value, this.categoria.idCategoria || 0).pipe(
       map((resp: any) => {
         console.log(">>> validaDescripcion [resp] " + resp.valid);
         return (resp.valid) ? null : { existeDescripcion: true };

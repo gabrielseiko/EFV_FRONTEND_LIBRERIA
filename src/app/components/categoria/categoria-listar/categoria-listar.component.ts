@@ -92,8 +92,8 @@ export class CategoriaListarComponent {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, elimina',
-      cancelButtonText: 'No, cancelar'
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
         this.categoriaService.eliminarCrud(obj.idCategoria || 0).subscribe(

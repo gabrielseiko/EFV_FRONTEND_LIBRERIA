@@ -12,10 +12,10 @@
                     <input matInput [(ngModel)]="categoria.descripcion" formControlName="validaDescripcion" />
                     <mat-hint style="color: red" *ngIf="formRegistrar.controls.validaDescripcion.touched">
                         <span *ngIf="formRegistrar.controls.validaDescripcion.hasError('required')">
-                            El Nombre es requerido
+                            La descripción es requerida
                         </span>
                         <span *ngIf="formRegistrar.controls.validaDescripcion.hasError('pattern')">
-                            El Nombre es de 3 a 45 caracteres
+                            La descripción es de 3 a 45 caracteres
                         </span>
                         <span *ngIf="formRegistrar.controls.validaDescripcion.hasError('existeDescripcion')">
                             La descripción ya existe

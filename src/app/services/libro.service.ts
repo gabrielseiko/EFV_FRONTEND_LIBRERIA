@@ -18,11 +18,11 @@ export class LibroService {
   }
 
   //Validaciones 
-  validaDescripcionRegistra(titulo: string): Observable<any> {
+  validaTituloRegistra(titulo: string): Observable<any> {
     console.log('>>> Service >> validaTituloRegistra [inicio]' + titulo);
     return this.http.get<any>(baseUrlAPI + '/validaTituloRegistra?titulo=' + titulo);
   }
-  validaDescripcionActualiza(titulo: string, id: number): Observable<any> {
+  validaTituloActualiza(titulo: string, id: number): Observable<any> {
     console.log('>>> Service >> validaTituloActualiza [inicio]' + titulo);
     return this.http.get<any>(baseUrlAPI + '/validaTituloActualiza?descripcion=' + titulo + "&idLibro=" + id);
   }
