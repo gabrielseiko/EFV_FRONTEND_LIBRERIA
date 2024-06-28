@@ -1,0 +1,71 @@
+<app-menu></app-menu>
+<div class="container">
+    <div class="row">
+        <mat-toolbar color="primary">
+            <span>Listado de Clientes</span>
+        </mat-toolbar>
+        <button (click)="openDialogRegistrar()" mat-raised-button type="button" color="primary" style="width: 150px;">Registrar</button>
+    </div>
+
+    <div class="row" style="margin-top: 3%">
+        <mat-table #table class="mat-cell" [dataSource]="dataSource">
+            <ng-container matColumnDef="idUsuario">
+                <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.idUsuario }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="nombres">
+                <mat-header-cell *matHeaderCellDef>Nombres</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.nombres }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="apellidos">
+                <mat-header-cell *matHeaderCellDef>Apellidos</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.apellidos }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="dni">
+                <mat-header-cell *matHeaderCellDef>DNI</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.dni }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="telefono">
+                <mat-header-cell *matHeaderCellDef>Teléfono</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.telefono }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.email }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="fechaNac">
+                <mat-header-cell *matHeaderCellDef>Fecha Nac.</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.fechaNac | date }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="sexo">
+                <mat-header-cell *matHeaderCellDef>Sexo</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.sexo }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="user">
+                <mat-header-cell *matHeaderCellDef>Usuario</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.user }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="idRecursivo">
+                <mat-header-cell *matHeaderCellDef>ID Recursivo</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.idRecursivo?.idUsuario }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="acciones">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>&nbsp;</mat-header-cell>
+                <mat-cell *matCellDef="let aux; let i=index;">
+                    
+                    <button mat-icon-button color="accent" (click)="openDialogActualizar(aux)" >
+                        <mat-icon aria-label="Edit">edit</mat-icon>
+                    </button>
+                    
+                    <button mat-icon-button color="accent" (click)="delete(aux)" >
+                        <mat-icon aria-label="Delete">delete</mat-icon>
+                    </button>
+
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let aux; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator style="margin-top: 10%;"  [pageSizeOptions]="[6, 8, 10]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>
