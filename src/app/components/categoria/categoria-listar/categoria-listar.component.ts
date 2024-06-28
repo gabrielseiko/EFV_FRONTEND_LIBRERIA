@@ -39,7 +39,11 @@ export class CategoriaListarComponent {
   constructor(private dialogService: MatDialog,
     private categoriaService: CategoriaService,
     private tokenService: TokenService) {
-    //this.objUsuario.idUsuario = tokenService.getUserId();
+  }
+
+  ngOnInit() {
+    this.objUsuario.idUsuario = this.tokenService.getUserId();
+    this.refreshTable();
   }
 
   openDialogRegistrar() {

@@ -39,7 +39,7 @@ export class CategoriaAgregarComponent {
 
   ngOnInit() {
     console.log(">>> OnInit [inicio]");
-    //this.objUsuario.idUsuario = this.tokenService.getUserId();
+    this.objUsuario.idUsuario = this.tokenService.getUserId();
     console.log(">>> OnInit [fin]");
   }
 
