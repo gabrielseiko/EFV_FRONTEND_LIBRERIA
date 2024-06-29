@@ -23,7 +23,7 @@ import Swal from 'sweetalert2';
 export class LibroVentaAgregarComponent {
   libroVenta: LibroVenta = {
     precio: 0,
-    stock: -1,
+    stock: 0,
     libro: {
       idLibro: -1,
     }

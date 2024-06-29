@@ -11,7 +11,7 @@
                 <mat-form-field class="col-md-11">
                     <mat-label>Categoría</mat-label>
                     <mat-select [(ngModel)]="libroVenta.libro!.categoria!.idCategoria" (selectionChange)="listaLibros()"
-                        formControlName="validaCategoria" readonly>
+                        formControlName="validaCategoria" >
                         <mat-option value="-1"> [Seleccione] </mat-option>
                         <mat-option *ngFor="let x of lstCategoria" [value]="x.idCategoria">
                             {{x.descripcion}}
@@ -29,7 +29,7 @@
                 <mat-form-field class="col-md-11">
                     <mat-label>Libro</mat-label>
                     <mat-select [(ngModel)]="libroVenta.libro!.idLibro"
-                        formControlName="validaLibro" readonly>
+                        formControlName="validaLibro" >
                         <mat-option value="-1"> [Seleccione] </mat-option>
                         <mat-option *ngFor="let x of lstLibro" [value]="x.idLibro">
                             {{x.titulo}}
@@ -46,7 +46,7 @@
             <div class="row" style="margin-top: 3%">
                 <mat-form-field class="col-md-11">
                     <mat-label>Precio</mat-label>
-                    <textarea matInput [(ngModel)]="libroVenta.precio" formControlName="validaPrecio" ></textarea>
+                    <input matInput [(ngModel)]="libroVenta.precio" formControlName="validaPrecio" />
                     <mat-hint style="color: red" *ngIf="formRegistrar.controls.validaPrecio.touched">
                         <span *ngIf="formRegistrar.controls.validaPrecio.hasError('required')">
                             El precio es requerido
@@ -61,7 +61,7 @@
             <div class="row" style="margin-top: 3%">
                 <mat-form-field class="col-md-11">
                     <mat-label>Stock</mat-label>
-                    <textarea matInput [(ngModel)]="libroVenta.stock" formControlName="validaStock" ></textarea>
+                    <input matInput [(ngModel)]="libroVenta.stock" formControlName="validaStock" />
                     <mat-hint style="color: red" *ngIf="formRegistrar.controls.validaStock.touched">
                         <span *ngIf="formRegistrar.controls.validaStock.hasError('required')">
                             El stock es requerido

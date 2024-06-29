@@ -23,7 +23,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class LibroReservaActualizarComponent {
   libroReserva: LibroReserva = {
-    stock: -1,
+    stock: 0,
     libro: {
       idLibro: -1,
     }
@@ -86,6 +86,14 @@ export class LibroReservaActualizarComponent {
             idLibro: -1,
           }
         }
+      },
+      error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: ' El libro ya tiene un registro en Libro Reserva.',
+        });
+        console.error('Error al registrar el libro para reserva:', error);
       }
     );
   }

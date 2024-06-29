@@ -24,7 +24,7 @@ import Swal from 'sweetalert2';
 })
 export class LibroReservaListarComponent {
   //Datos para la Grila
-  dataSource: any;
+  dataSource = new MatTableDataSource<LibroReserva>();
 
   //Clase para la paginacion
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
@@ -34,6 +34,9 @@ export class LibroReservaListarComponent {
 
   //filtro de la consulta
   filtro: string = "";
+
+  //Lista de libros reserva
+  lstLibros: LibroReserva[] = []; 
 
   objUsuario: Usuario = {};
 
@@ -46,6 +49,10 @@ export class LibroReservaListarComponent {
   ngOnInit() {
     this.objUsuario.idUsuario = this.tokenService.getUserId();
     this.refreshTable();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   openDialogRegistrar() {
@@ -75,14 +82,17 @@ export class LibroReservaListarComponent {
 
   refreshTable() {
     console.log(">>> refreshTable [ini]");
-    var msgFiltro = this.filtro == "" ? "todos" : this.filtro;
-    this.libroService.consultarCrud(msgFiltro).subscribe(
-      x => {
-        this.dataSource = new MatTableDataSource<LibroReserva>(x);
-        this.dataSource.paginator = this.paginator
+    //var msgFiltro = this.filtro == "" ? "todos" : this.filtro;
+    this.libroReservaService.listar().subscribe(
+      data => {
+        this.lstLibros = data;
+        this.dataSource.data = this.lstLibros;
+      },
+      error => {
+        console.error('Error al listar Libros:', error);
       }
     );
-
+  
     console.log(">>> refreshTable [fin]");
   }
 

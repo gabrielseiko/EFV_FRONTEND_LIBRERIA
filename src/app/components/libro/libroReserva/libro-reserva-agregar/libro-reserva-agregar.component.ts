@@ -23,7 +23,7 @@ import { map } from 'rxjs';
 })
 export class LibroReservaAgregarComponent {
   libroReserva: LibroReserva = {
-    stock: -1,
+    stock: 0,
     libro: {
       idLibro: -1,
     }

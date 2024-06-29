@@ -46,7 +46,7 @@
             <div class="row" style="margin-top: 3%">
                 <mat-form-field class="col-md-11">
                     <mat-label>Stock</mat-label>
-                    <textarea matInput [(ngModel)]="libroReserva.stock" formControlName="validaStock" ></textarea>
+                    <input matInput [(ngModel)]="libroReserva.stock" formControlName="validaStock" />
                     <mat-hint style="color: red" *ngIf="formRegistrar.controls.validaStock.touched">
                         <span *ngIf="formRegistrar.controls.validaStock.hasError('required')">
                             El stock es requerido

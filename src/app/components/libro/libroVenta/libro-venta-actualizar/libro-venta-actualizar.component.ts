@@ -24,7 +24,7 @@ import Swal from 'sweetalert2';
 export class LibroVentaActualizarComponent {
   libroVenta: LibroVenta = {
     precio: 0,
-    stock: -1,
+    stock: 0,
     libro: {
       idLibro: -1,
     }
@@ -89,6 +89,14 @@ export class LibroVentaActualizarComponent {
             idLibro: -1,
           }
         }
+      },
+      error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: ' El libro ya tiene un registro en Libro Venta.',
+        });
+        console.error('Error al registrar el libro para venta:', error);
       }
     );
   }
