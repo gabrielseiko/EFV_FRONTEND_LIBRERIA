@@ -1,1 +1,69 @@
-<p>libro-reserva-listar works!</p>
+<app-menu></app-menu>
+<div class="container">
+    <div class="row">
+        <mat-toolbar color="primary">
+            <span>Crud Libro Reserva</span>
+        </mat-toolbar>
+    </div>
+    <div class="row">
+        <mat-form-field class="col-md-4">
+            <mat-label>Título del libro</mat-label>
+            <input matInput [(ngModel)]="filtro">
+        </mat-form-field>
+
+        <button (click)="refreshTable()" mat-raised-button type="button" color="primary"
+        style="width: 150px; margin-right: 3%">Filtrar</button>
+        <button (click)="openDialogRegistrar()" mat-raised-button type="button" color="primary"
+            style="width: 150px;">Registrar</button>
+    </div>
+    <div class="mat-elevation-z8" >
+        <table mat-table  [dataSource]="dataSource">
+            <ng-container matColumnDef="idLibroReserva">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>Código</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.idLibroReserva }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="titulo">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>Título</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.libro.titulo}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="categoria">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>Categoría</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.libro.categoria.descripcion}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="stock">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>Stock</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.stock}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="estado">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.estado == 1 ? "Disponible" : "No Disponible" }}</mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="acciones">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>&nbsp; Acciones</mat-header-cell>
+                <mat-cell *matCellDef="let aux; let i=index;">
+
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="idEstado_{{ aux.idLibroReserva}}"
+                            name="estado" [checked]="aux.estado==1?true:false" (change)="updateEstado(aux)" />
+                        <label class="custom-control-label" for="idEstado_{{ aux.idLibroReserva}}"></label>
+                    </div>
+
+                    <button mat-icon-button color="accent" (click)="openDialogActualizar(aux)">
+                        <mat-icon aria-label="Edit">edit</mat-icon>
+                    </button>
+
+                    <button mat-icon-button color="accent" (click)="delete(aux)">
+                        <mat-icon aria-label="Delete">delete</mat-icon>
+                    </button>
+
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let aux; columns: displayedColumns"></mat-row>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
+
+    </div>
+
+</div>

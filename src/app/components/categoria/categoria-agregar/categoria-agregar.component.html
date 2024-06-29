@@ -8,7 +8,7 @@
             </div>
             <div class="row" style="margin-top: 3%">
                 <mat-form-field class="col-md-11">
-                    <mat-label>Descripcion</mat-label>
+                    <mat-label>Descripción</mat-label>
                     <input matInput [(ngModel)]="categoria.descripcion" formControlName="validaDescripcion" />
                     <mat-hint style="color: red" *ngIf="formRegistrar.controls.validaDescripcion.touched">
                         <span *ngIf="formRegistrar.controls.validaDescripcion.hasError('required')">
