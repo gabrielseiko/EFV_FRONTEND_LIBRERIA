@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MenuComponent } from '../../../menu/menu.component';
 import { CommonModule } from '@angular/common';
 import { AppMaterialModule } from '../../../app.material.module';
@@ -8,6 +8,7 @@ import { UsuarioService } from '../../../services/usuario.service';
 import { TokenService } from '../../../security/token.service';
 import moment from 'moment';
 import Swal from 'sweetalert2';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-cliente-agregar',
@@ -29,18 +30,18 @@ export class ClienteAgregarComponent {
     contrasenia: "",
     idRecursivo: {idUsuario: -1}
   }; 
+  
   formRegistrar = this.formBuilder.group({
-    validaNombres: ['', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]],
-    validaApellidos: ['', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]],
-    validaDni: ['', [Validators.required, Validators.pattern('[0-9]{8}')]],
+    validaNombres: ['', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')], this.validacionNombre.bind(this)],
+    validaApellidos: ['', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')], this.validacionApellido.bind(this)],
+    validaDni: ['', [Validators.required, Validators.pattern('[0-9]{8}')], this.validacionDni.bind(this)],
     validaTelefono: ['', [Validators.required, Validators.pattern('[0-9]{9}')]],
-    validaEmail: ['', [Validators.required, Validators.email]],
+    validaEmail: ['', [Validators.required, Validators.email], this.validacionEmail.bind(this)],
     validaFechaNac: ['', [Validators.required]],
     validaSexo: ['', [Validators.required]],
-    validaUser: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]{5,15}')]],
-    validaContrasenia: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]{5,15}')]],
-    validaIdRecursivo: ['', [Validators.required]]
-  }); 
+    validaUser: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]{3,15}')], this.validacionUser.bind(this)],
+    validaContrasenia: ['', [Validators.required]],
+  });  
 
   // Lista de Admin
   listaAdmin: Usuario[] = [];
@@ -93,4 +94,39 @@ export class ClienteAgregarComponent {
     };
     this.formRegistrar.reset();
   }   
+  validacionNombre(control: FormControl){
+    return this.usuarioService.validaNombre(control.value).pipe(
+      map((resp: any)=>{
+        return (resp.valid) ? null : {existeNombre: true};
+      })
+    );
+  }
+  validacionApellido(control: FormControl){
+    return this.usuarioService.validaApellido(control.value).pipe(
+      map((resp: any)=>{
+        return (resp.valid) ? null : {existeApellido: true};
+      })
+    );
+  }
+  validacionDni(control: FormControl){
+    return this.usuarioService.validaDni(control.value).pipe(
+      map((resp: any)=>{
+        return (resp.valid) ? null : {existeDni: true};
+      })
+    );
+  }
+  validacionEmail(control: FormControl){
+    return this.usuarioService.validaEmail(control.value).pipe(
+      map((resp: any)=>{
+        return (resp.valid) ? null : {existeEmail: true};
+      })
+    );
+  }
+  validacionUser(control: FormControl){
+    return this.usuarioService.validaUser(control.value).pipe(
+      map((resp: any)=>{
+        return (resp.valid) ? null : {existeUser: true};
+      })
+    );
+  }
 }

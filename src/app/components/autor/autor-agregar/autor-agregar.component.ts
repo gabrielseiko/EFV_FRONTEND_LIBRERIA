@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MenuComponent } from '../../../menu/menu.component';
 import { CommonModule } from '@angular/common';
 import { AppMaterialModule } from '../../../app.material.module';
@@ -8,6 +8,7 @@ import { AutorService } from '../../../services/autor.service';
 import { TokenService } from '../../../security/token.service';
 import { Usuario } from '../../../models/usuario.model';
 import Swal from 'sweetalert2';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-autor-agregar',
@@ -24,7 +25,7 @@ export class AutorAgregarComponent {
   }; 
 
   formRegistrar = this.formBuilder.group({
-    validaNombres: ['', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]]
+    validaNombres: ['', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')], this.validaNombre.bind(this)],
   });  
 
   constructor(
@@ -50,4 +51,11 @@ resetForm() {
   };
   this.formRegistrar.reset();
 } 
+ validaNombre(control: FormControl){
+  return this.autorService.validaNombreCompleto(control.value).pipe(
+    map((resp: any) => {
+      return (resp.valid) ? null : {existeNombre: true}
+    })
+  )
+ }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { MenuComponent } from '../../../menu/menu.component';
 import { CommonModule } from '@angular/common';
 import { AppMaterialModule } from '../../../app.material.module';
@@ -8,6 +8,7 @@ import { UsuarioService } from '../../../services/usuario.service';
 import { TokenService } from '../../../security/token.service';
 import Swal from 'sweetalert2';
 import moment from 'moment';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-trabajador-agregar',
@@ -32,16 +33,15 @@ export class TrabajadorAgregarComponent {
   }; 
 
   formRegistrar = this.formBuilder.group({
-    validaNombres: ['', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]],
-    validaApellidos: ['', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]],
-    validaDni: ['', [Validators.required, Validators.pattern('[0-9]{8}')]],
+    validaNombres: ['', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')], this.validacionNombre.bind(this)],
+    validaApellidos: ['', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')], this.validacionApellido.bind(this)],
+    validaDni: ['', [Validators.required, Validators.pattern('[0-9]{8}')], this.validacionDni.bind(this)],
     validaTelefono: ['', [Validators.required, Validators.pattern('[0-9]{9}')]],
-    validaEmail: ['', [Validators.required, Validators.email]],
+    validaEmail: ['', [Validators.required, Validators.email], this.validacionEmail.bind(this)],
     validaFechaNac: ['', [Validators.required]],
     validaSexo: ['', [Validators.required]],
-    validaUser: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]{5,15}')]],
-    validaContrasenia: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]{5,15}')]],
-    validaIdRecursivo: ['', [Validators.required]]
+    validaUser: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]{3,15}')], this.validacionUser.bind(this)],
+    validaContrasenia: ['', [Validators.required]],
   });  
 
   // Lista de Admin
@@ -96,4 +96,40 @@ export class TrabajadorAgregarComponent {
     this.formRegistrar.reset();
   }  
 
+
+  validacionNombre(control: FormControl){
+    return this.usuarioService.validaNombre(control.value).pipe(
+      map((resp: any)=>{
+        return (resp.valid) ? null : {existeNombre: true};
+      })
+    );
+  }
+  validacionApellido(control: FormControl){
+    return this.usuarioService.validaApellido(control.value).pipe(
+      map((resp: any)=>{
+        return (resp.valid) ? null : {existeApellido: true};
+      })
+    );
+  }
+  validacionDni(control: FormControl){
+    return this.usuarioService.validaDni(control.value).pipe(
+      map((resp: any)=>{
+        return (resp.valid) ? null : {existeDni: true};
+      })
+    );
+  }
+  validacionEmail(control: FormControl){
+    return this.usuarioService.validaEmail(control.value).pipe(
+      map((resp: any)=>{
+        return (resp.valid) ? null : {existeEmail: true};
+      })
+    );
+  }
+  validacionUser(control: FormControl){
+    return this.usuarioService.validaUser(control.value).pipe(
+      map((resp: any)=>{
+        return (resp.valid) ? null : {existeUser: true};
+      })
+    );
+  }
 }

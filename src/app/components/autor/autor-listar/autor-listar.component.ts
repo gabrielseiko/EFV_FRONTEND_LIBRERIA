@@ -22,14 +22,19 @@ import { AutorActualizarComponent } from '../autor-actualizar/autor-actualizar.c
 })
 export class AutorListarComponent implements OnInit, AfterViewInit {
 
-  dataSource = new MatTableDataSource<Autor>();
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  //Datos para la Grila
+  dataSource: any;
+
+  @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
   displayedColumns = [
     "idAutor",
     "nombreCompleto",
     "acciones"
   ]; 
+
+  //filtro de la consulta
+  filtro: string = "";
 
   listaAutores: Autor[] = [];
 
@@ -71,10 +76,11 @@ export class AutorListarComponent implements OnInit, AfterViewInit {
   }  
 
   refreshTable() {
-    this.autorService.listarAutores().subscribe(
+    var msgFiltro = this.filtro == "" ? "todos" : this.filtro;
+    this.autorService.consultaAutorNombre(msgFiltro).subscribe(
       data => {
-        this.listaAutores = data;
-        this.dataSource.data = this.listaAutores;
+        this.dataSource = new MatTableDataSource<Autor>(data);
+        this.dataSource.paginator = this.paginator;
       },
       error => {
         console.error('Error al listar Autores:', error);
