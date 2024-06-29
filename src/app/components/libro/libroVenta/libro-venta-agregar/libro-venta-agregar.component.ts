@@ -75,7 +75,7 @@ export class LibroVentaAgregarComponent {
 
     this.libroVentaService.registrarCrud(this.libroVenta).subscribe(
       x => {
-        Swal.fire({ icon: 'info', title: 'Resultado del Registro', text: x.mensaje, });
+        Swal.fire({ icon: 'success', title: 'Resultado del Registro', text: x.mensaje, });
         this.libroVenta = {
           precio: 0,
           stock: -1,

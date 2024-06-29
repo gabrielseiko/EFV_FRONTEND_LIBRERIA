@@ -102,7 +102,7 @@ export class LibroVentaListarComponent {
     Swal.fire({
       title: '¿Desea eliminar?',
       text: "Los cambios no se pueden revertir",
-      icon: 'warning',
+      icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -113,7 +113,7 @@ export class LibroVentaListarComponent {
         this.libroVentaService.eliminarCrud(obj.idLibroVenta || 0).subscribe(
           x => {
             this.refreshTable();
-            Swal.fire('Mensaje', x.mensaje, 'info');
+            Swal.fire('Mensaje', x.mensaje, 'warning');
           }
         );
       }

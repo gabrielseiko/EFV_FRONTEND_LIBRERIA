@@ -14,8 +14,8 @@
                         <span *ngIf="formRegistrar.controls.validaDescripcion.hasError('required')">
                             El Nombre es requerido
                         </span>
-                        <span *ngIf="formRegistrar.controls.validaDescripcion.hasError('pattern')">
-                            El Nombre es de 3 a 45 caracteres
+                        <span *ngIf="formRegistrar.controls.validaDescripcion.hasError('minlength')">
+                            La descripción es de 3 caracteres mínimo
                         </span>
                         <span *ngIf="formRegistrar.controls.validaDescripcion.hasError('existeDescripcion')">
                             La descripción ya existe
