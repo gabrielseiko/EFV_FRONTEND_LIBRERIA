@@ -22,8 +22,10 @@ import { TrabajadorActualizarComponent } from '../trabajador-actualizar/trabajad
 })
 export class TrabajadorListarComponent implements OnInit {
 
-  dataSource = new MatTableDataSource<Usuario>();
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  //Datos para la Grila
+  dataSource: any;
+
+  @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
   displayedColumns = [
     "idUsuario",
@@ -38,6 +40,8 @@ export class TrabajadorListarComponent implements OnInit {
     "idRecursivo",
     "acciones"
   ];
+  //filtro de la consulta
+  filtro: string = "";
 
   listaTrabajadores: Usuario[] = [];
   objUsuario: Usuario = {};
@@ -53,11 +57,14 @@ export class TrabajadorListarComponent implements OnInit {
     this.refreshTable();
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
   openDialogRegistrar() {
     const dialogRef = this.dialogService.open(TrabajadorAgregarComponent, {
-      width: '5000px', // Ajusta el ancho según tus necesidades
-      height: 'auto', // Ajusta la altura según tus necesidades
-      autoFocus: false
+      width: '90%',
+      height: 'auto',
     });
   
     dialogRef.afterClosed().subscribe(result => {
@@ -82,14 +89,14 @@ export class TrabajadorListarComponent implements OnInit {
   }  
   
   refreshTable() {
-    this.usuarioService.listarTrabajadores().subscribe(
+    var msgFiltro = this.filtro == "" ? "todos" : this.filtro;
+    this.usuarioService.consultaTrabajadorNombre(msgFiltro).subscribe(
       data => {
-        this.listaTrabajadores = data;
-        this.dataSource.data = this.listaTrabajadores;
+        this.dataSource = new MatTableDataSource<Usuario>(data);
         this.dataSource.paginator = this.paginator;
       },
       error => {
-        console.error('Error al listar trabajadores:', error);
+        console.error('Error al listar Autores:', error);
       }
     );
   }

@@ -4,7 +4,19 @@
         <mat-toolbar color="primary">
             <span>Listado de Autores</span>
         </mat-toolbar>
-     <button (click)="openDialogRegistrar()" mat-raised-button type="button" color="primary" style="width: 150px;">Registrar</button> 
+    </div>
+
+    <div class="row">
+        <mat-form-field class="col-md-4">
+            <mat-label>Nombre Autor</mat-label>
+            <input matInput [(ngModel)] = "filtro">
+        </mat-form-field>
+        <button (click)="refreshTable()" mat-raised-button type="button" color="primary" style="width: 150px; margin-right: 3%">
+            Filtrar
+        </button>
+        <button (click)="openDialogRegistrar()" mat-raised-button type="button" color="primary" style="width: 150px;">
+            Registrar
+        </button> 
     </div>
 
     <div class="row" style="margin-top: 3%">

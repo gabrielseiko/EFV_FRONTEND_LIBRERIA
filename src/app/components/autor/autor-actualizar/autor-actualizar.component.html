@@ -9,7 +9,7 @@
         </div>
   
         <div class="row" style="margin-top: 3%">
-          <mat-form-field class="col-md-4">
+          <mat-form-field class="col-md-12">
             <mat-label>Nombre Completo</mat-label>
             <input matInput formControlName="validaNombres" [(ngModel)]="autor.nombreCompleto">
             <span *ngIf="formRegistrar.controls.validaNombres.hasError('required')">

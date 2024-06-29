@@ -22,8 +22,10 @@ import Swal from 'sweetalert2';
 })
 export class ClienteListarComponent implements OnInit{
 
-  dataSource = new MatTableDataSource<Usuario>();
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  //Datos para la Grila
+  dataSource: any;
+
+  @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
   displayedColumns = [
     "idUsuario",
@@ -38,6 +40,8 @@ export class ClienteListarComponent implements OnInit{
     "idRecursivo",
     "acciones"
   ]; 
+  //filtro de la consulta
+  filtro: string = "";
 
   listaClientes: Usuario[] = [];
   objUsuario: Usuario = {};
@@ -53,9 +57,15 @@ export class ClienteListarComponent implements OnInit{
     this.refreshTable();
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
   openDialogRegistrar() {
-    const dialogRef = this.dialogService.open(ClienteAgregarComponent, {});
+    const dialogRef = this.dialogService.open(ClienteAgregarComponent, {
+      width: '90%',
+      height: 'auto',
+    });
   
     dialogRef.afterClosed().subscribe(result => {
       console.log('Dialog closed with result:', result);
@@ -78,10 +88,10 @@ export class ClienteListarComponent implements OnInit{
   }  
 
   refreshTable() {
-    this.usuarioService.listarClientes().subscribe(
+    var msgFiltro = this.filtro == "" ? "todos" : this.filtro;
+    this.usuarioService.consultaClienteNombre(msgFiltro).subscribe(
       data => {
-        this.listaClientes = data;
-        this.dataSource.data = this.listaClientes;
+        this.dataSource = new MatTableDataSource<Usuario>(data);
         this.dataSource.paginator = this.paginator;
       },
       error => {

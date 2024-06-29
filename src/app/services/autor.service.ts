@@ -30,4 +30,12 @@ export class AutorService {
     return this.http.delete(urlAutor+"/eliminarAutor/"+id);
   }
 
+  //VALIDACIONES
+  validaNombreCompleto(nombreCompleto:string):Observable<any>{
+    return this.http.get<any>(urlAutor+'/validaNombreCompleto?nombreCompleto='+ nombreCompleto );
+  }
+  //CONSULTA
+  consultaAutorNombre(filtro:string):Observable<any>{
+    return this.http.get(urlAutor+"/listaAutoresPorNombreLike/" + filtro);
+  }
 }
