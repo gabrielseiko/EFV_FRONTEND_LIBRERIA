@@ -8,14 +8,14 @@
             </div>
             <div class="row" style="margin-top: 3%">
                 <mat-form-field class="col-md-11">
-                    <mat-label>Descripcion</mat-label>
+                    <mat-label>Descripción</mat-label>
                     <input matInput [(ngModel)]="categoria.descripcion" formControlName="validaDescripcion" />
                     <mat-hint style="color: red" *ngIf="formRegistrar.controls.validaDescripcion.touched">
                         <span *ngIf="formRegistrar.controls.validaDescripcion.hasError('required')">
                             La descripción es requerida
                         </span>
-                        <span *ngIf="formRegistrar.controls.validaDescripcion.hasError('pattern')">
-                            La descripción es de 3 a 45 caracteres
+                        <span *ngIf="formRegistrar.controls.validaDescripcion.hasError('minlength')">
+                            La descripción es de 3 caracteres mínimo
                         </span>
                         <span *ngIf="formRegistrar.controls.validaDescripcion.hasError('existeDescripcion')">
                             La descripción ya existe

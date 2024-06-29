@@ -24,7 +24,7 @@ export class CategoriaAgregarComponent {
   }
 
   formRegistrar = this.formBuilder.group({
-    validaDescripcion: ['', [Validators.required, Validators.pattern('[a-zA-Z ]{3,45}')], this.validaDescripcion.bind(this)],
+    validaDescripcion: ['', [Validators.required, Validators.minLength(3)], this.validaDescripcion.bind(this)],
   });
 
 
@@ -50,7 +50,7 @@ export class CategoriaAgregarComponent {
 
     this.categoriaService.registrarCrud(this.categoria).subscribe(
       x => {
-        Swal.fire({ icon: 'info', title: 'Resultado del Registro', text: x.mensaje, });
+        Swal.fire({ icon: 'success', title: 'Resultado del Registro', text: x.mensaje, });
         this.categoria = {
           descripcion: "",
         }

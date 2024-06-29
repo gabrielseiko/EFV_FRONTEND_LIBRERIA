@@ -24,7 +24,7 @@ export class CategoriaActualizarComponent {
   }
 
   formRegistrar = this.formBuilder.group({
-    validaDescripcion: ['', [Validators.required, Validators.pattern('[a-zA-Z ]{3,45}')], this.validaDescripcion.bind(this)],
+    validaDescripcion: ['', [Validators.required, Validators.minLength(3)], this.validaDescripcion.bind(this)],
   });
 
 

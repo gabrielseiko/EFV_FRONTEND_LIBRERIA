@@ -17,6 +17,11 @@ export class LibroService {
     return this.http.get(baseUrlAPI);
   }
 
+  //lista libros por categoria
+  listaLibrosPorCategoria(categoria: any):Observable<Libro[]>{
+    return this.http.get<Libro[]>(baseUrlAPI + '/listaLibrosPorCategoria/' + categoria);
+  }
+
   //Validaciones 
   validaTituloRegistra(titulo: string): Observable<any> {
     console.log('>>> Service >> validaTituloRegistra [inicio]' + titulo);

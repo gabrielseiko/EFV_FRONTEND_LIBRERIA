@@ -1,1 +1,89 @@
-<p>libro-venta-agregar works!</p>
+<div class="container">
+    <form [formGroup]="formRegistrar">
+        <div class="mat-dialog-content">
+            <div class="row">
+                <mat-toolbar color="primary">
+                    <span>Nuevo Libro Venta</span>
+                </mat-toolbar>
+            </div>
+
+            <div class="row" style="margin-top: 3%">
+                <mat-form-field class="col-md-11">
+                    <mat-label>Categoría</mat-label>
+                    <mat-select [(ngModel)]="cat.idCategoria" (selectionChange)="listaLibros()"
+                        formControlName="validaCategoria">
+                        <mat-option value="-1"> [Seleccione] </mat-option>
+                        <mat-option *ngFor="let x of lstCategoria" [value]="x.idCategoria">
+                            {{x.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaCategoria.touched">
+                        <span *ngIf="formRegistrar.controls.validaCategoria.hasError('min')">
+                            La categoría es requerida
+                        </span>
+                    </mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div class="row" style="margin-top: 3%">
+                <mat-form-field class="col-md-11">
+                    <mat-label>Libro</mat-label>
+                    <mat-select [(ngModel)]="libroVenta.libro!.idLibro"
+                        formControlName="validaLibro">
+                        <mat-option value="-1"> [Seleccione] </mat-option>
+                        <mat-option *ngFor="let x of lstLibro" [value]="x.idLibro">
+                            {{x.titulo}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaLibro.touched">
+                        <span *ngIf="formRegistrar.controls.validaLibro.hasError('min')">
+                            El libro es requerido
+                        </span>
+                    </mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div class="row" style="margin-top: 3%">
+                <mat-form-field class="col-md-11">
+                    <mat-label>Precio</mat-label>
+                    <input matInput [(ngModel)]="libroVenta.precio" formControlName="validaPrecio" />
+                    <mat-hint style="color: red" *ngIf="formRegistrar.controls.validaPrecio.touched">
+                        <span *ngIf="formRegistrar.controls.validaPrecio.hasError('required')">
+                            El precio es requerido
+                        </span>
+                        <span *ngIf="formRegistrar.controls.validaPrecio.hasError('min')">
+                            El precio debe ser mayor a 0.
+                        </span>
+                    </mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div class="row" style="margin-top: 3%">
+                <mat-form-field class="col-md-11">
+                    <mat-label>Stock</mat-label>
+                    <input matInput [(ngModel)]="libroVenta.stock" formControlName="validaStock" />
+                    <mat-hint style="color: red" *ngIf="formRegistrar.controls.validaStock.touched">
+                        <span *ngIf="formRegistrar.controls.validaStock.hasError('required')">
+                            El stock es requerido
+                        </span>
+                        <span *ngIf="formRegistrar.controls.validaStock.hasError('min')">
+                            El stock debe ser mayor a 0.
+                        </span>
+                    </mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div style="text-align: center; margin-top: 15px;">
+
+                <button mat-raised-button type="submit" color="primary" [disabled]="formRegistrar.invalid"
+                    [mat-dialog-close]="1" (click)="registra()"
+                    style="margin-right: 10px; margin-bottom: 10px;">Registrar
+                </button>
+                <button mat-button type="submit" (click)="salir()" [mat-dialog-close]="2"
+                    style="margin-left: 10px; margin-bottom: 10px;">Salir
+                </button>
+
+            </div>
+        </div>
+    </form>
+</div>
