@@ -2,122 +2,164 @@
 <div class="container">
     <form [formGroup]="formRegistrar">
       <div class="mat-dialog-content">
-        <div class="row">
-          <mat-toolbar color="primary">
-              <span>Registra Trabajador</span>
-          </mat-toolbar>
-        </div>
+          <div class="row">
+            <mat-toolbar color="primary">
+                <span>Registra Trabajador</span>
+            </mat-toolbar>
+          </div>
   
-        <div class="row" style="margin-top: 3%">
-          <mat-form-field class="col-md-4">
-            <mat-label>Nombres</mat-label>
-              <input matInput formControlName="validaNombres" [(ngModel)]="usuario.nombres">
-                <span *ngIf="formRegistrar.controls.validaNombres.hasError('required')">
-                  La descripción es requerida
-                </span>
-            </mat-form-field>
-      
-          <mat-form-field class="col-md-4">
-            <mat-label>Apellidos</mat-label>
-            <input matInput formControlName="validaApellidos" [(ngModel)]="usuario.apellidos">
-              <span *ngIf="formRegistrar.controls.validaApellidos.hasError('required')">
-                  La descripción es requerida
-              </span>
-          </mat-form-field>
-   
-          <mat-form-field class="col-md-4">
-            <mat-label>DNI</mat-label>
-            <input matInput formControlName="validaDni" [(ngModel)]="usuario.dni">
-                  <span *ngIf="formRegistrar.controls.validaDni.hasError('required')">
-                      La descripción es requerida
+          <div class="row" style="margin-top: 3% ">
+            <mat-form-field class="col-md-6">
+              <mat-label>Nombres</mat-label>
+                <input matInput [(ngModel)]="usuario.nombres" formControlName="validaNombres" >
+                <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaNombres.touched" >
+                  <span *ngIf="formRegistrar.controls.validaNombres.hasError('required')">
+                    El nombre es requerido
                   </span>
+                  <span *ngIf="formRegistrar.controls.validaNombres.hasError('pattern')">
+                    El nombre debe ser mayor a 3 caracteres.
+                  </span>
+                  <span *ngIf="formRegistrar.controls.validaNombres.hasError('existeNombre')">
+                    El nombre ya se encuentra registrado.
+                </span>
+                </mat-hint> 
+              </mat-form-field>
+
+              <mat-form-field class="col-md-6">
+                <mat-label>Apellidos</mat-label>
+                <input matInput  [(ngModel)]="usuario.apellidos" formControlName="validaApellidos" >
+                <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaApellidos.touched">
+                    <span *ngIf="formRegistrar.controls.validaApellidos.hasError('required')">
+                        El apellido es requerido
+                    </span>
+                    <span *ngIf="formRegistrar.controls.validaApellidos.hasError('pattern')">
+                      El apellido debe ser mayor a 3 caracteres.
+                    </span>
+                    <span *ngIf="formRegistrar.controls.validaApellidos.hasError('existeApellido')">
+                      El Apellido ya se encuentra registrado.
+                  </span>
+                </mat-hint>
+              </mat-form-field>
+          </div>
+        
+
+          <div class="row" style="margin-top: 3%">
+            <mat-form-field class="col-md-6">
+              <mat-label>DNI</mat-label>
+              <input matInput [(ngModel)]="usuario.dni" formControlName="validaDni" >
+              <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaDni.touched">
+                  <span *ngIf="formRegistrar.controls.validaDni.hasError('required')">
+                    El DNI es requerido
+                  </span>
+                  <span *ngIf="formRegistrar.controls.validaDni.hasError('pattern')">
+                    El DNI debe tener 8 digitos.
+                </span>
+                <span *ngIf="formRegistrar.controls.validaDni.hasError('existeDni')">
+                    El DNI ya existe
+                </span>
+              </mat-hint>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-6">
+              <mat-label>Teléfono</mat-label>
+              <input matInput formControlName="validaTelefono" [(ngModel)]="usuario.telefono">
+              <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaTelefono.touched">
+                <span *ngIf="formRegistrar.controls.validaTelefono.hasError('required')">
+                  El telefono es requerido
+                </span>
+                <span *ngIf="formRegistrar.controls.validaTelefono.hasError('pattern')">
+                  El telefono debe tener 9 digitos.
+                </span>
+              </mat-hint>  
           </mat-form-field>
-        </div>
-  
-  
+          </div>  
+      
+          <div class="row" style="margin-top: 3%">
+            <mat-form-field class="col-md-6">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="validaEmail" [(ngModel)]="usuario.email">
+              <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaEmail.touched">
+                <span *ngIf="formRegistrar.controls.validaEmail.hasError('required')">
+                  El email es requerido
+                </span>
+                <span *ngIf="formRegistrar.controls.validaEmail.hasError('email')">
+                  El email debe cumplir con el formato de correo.
+                </span>
+                <span *ngIf="formRegistrar.controls.validaEmail.hasError('existeEmail')">
+                  El email ya se encuentra registrado.
+                </span>
+              </mat-hint>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-6">
+              <mat-label>Fecha de Nacimiento</mat-label>
+              <input matInput [matDatepicker]="dp" formControlName="validaFechaNac" [(ngModel)]="usuario.fechaNac">
+              <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+              <mat-datepicker #dp></mat-datepicker>
+              <mat-error *ngIf="formRegistrar.controls.validaFechaNac.hasError('required')">
+                La fecha de nacimiento es requerida
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="row" style="margin-top: 3%">
+            <mat-form-field class="col-md-6">
+                <mat-label>Sexo</mat-label>
+                <mat-select formControlName="validaSexo" [(ngModel)]="usuario.sexo">
+                  <mat-option value="M">Masculino</mat-option>
+                  <mat-option value="F">Femenino</mat-option>
+                </mat-select>
+                <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaFechaNac.touched">
+                  <span *ngIf="formRegistrar.controls.validaSexo.hasError('required')">
+                     El sexo es requerido
+                  </span>
+                </mat-hint>
+              </mat-form-field>
+
+              
+            <mat-form-field class="col-md-6">
+              <mat-label>Usuario</mat-label>
+              <input matInput formControlName="validaUser" [(ngModel)]="usuario.user">
+              <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaUser.touched">
+                <span *ngIf="formRegistrar.controls.validaUser.hasError('required')">
+                  El Usuario es requerido
+                </span>
+                <span *ngIf="formRegistrar.controls.validaUser.hasError('pattern')">
+                  El Usuario debe ser mayor a 3 caracteres.
+                </span>
+                <span *ngIf="formRegistrar.controls.validaUser.hasError('existeUser')">
+                  El Usuario ya se encuentra registrado.
+                </span>
+              </mat-hint>
+            </mat-form-field>
+          </div>
+
+
         <div class="row" style="margin-top: 3%">
-        <div class="col-md-4">
-          <mat-form-field class="full-width">
-            <mat-label>Teléfono</mat-label>
-            <input matInput formControlName="validaTelefono" [(ngModel)]="usuario.telefono">
-              <span *ngIf="formRegistrar.controls.validaTelefono.hasError('required')">
-                  La descripción es requerida
-              </span>
-          </mat-form-field>
+          <mat-form-field class="col-md-11">
+              <mat-label>Contraseña</mat-label>
+              <input matInput formControlName="validaContrasenia" [(ngModel)]="usuario.contrasenia" type="password">
+              <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaContrasenia.touched">
+                <span *ngIf="formRegistrar.controls.validaContrasenia.hasError('required')">
+                    La contrasenia es requerida
+                </span>
+              </mat-hint>
+            </mat-form-field>
         </div>
   
-        <div class="col-md-4">
-          <mat-form-field class="full-width">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="validaEmail" [(ngModel)]="usuario.email">
-              <span *ngIf="formRegistrar.controls.validaEmail.hasError('required')">
-                  La descripción es requerida
-              </span>
-          </mat-form-field>
-        </div>
   
-        <div class="col-md-4">
-          <mat-form-field class="full-width">
-            <mat-label>Fecha de Nacimiento</mat-label>
-            <input matInput [matDatepicker]="dp" formControlName="validaFechaNac" [(ngModel)]="usuario.fechaNac">
-            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-            <mat-datepicker #dp></mat-datepicker>
-            <mat-error *ngIf="formRegistrar.controls.validaFechaNac.hasError('required')">
-              La fecha de nacimiento es requerida
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>  
-  
-      <div class="row" style="margin-top: 3%">
-        <div class="col-md-4">
-          <mat-form-field class="full-width">
-            <mat-label>Sexo</mat-label>
-            <mat-select formControlName="validaSexo" [(ngModel)]="usuario.sexo">
-              <mat-option value="M">Masculino</mat-option>
-              <mat-option value="F">Femenino</mat-option>
-            </mat-select>
-              <span *ngIf="formRegistrar.controls.validaSexo.hasError('required')">
-                  La descripción es requerida
-              </span>
-          </mat-form-field>
-        </div>
-  
-        <div class="col-md-4">
-          <mat-form-field class="full-width">
-            <mat-label>Usuario</mat-label>
-            <input matInput formControlName="validaUser" [(ngModel)]="usuario.user">
-              <span *ngIf="formRegistrar.controls.validaUser.hasError('required')">
-                  La descripción es requerida
-              </span>
-          </mat-form-field>
-        </div>
-  
-        <div class="col-md-4">
-          <mat-form-field class="full-width">
-            <mat-label>Contraseña</mat-label>
-            <input matInput formControlName="validaContrasenia" [(ngModel)]="usuario.contrasenia" type="password">
-              <span *ngIf="formRegistrar.controls.validaContrasenia.hasError('required')">
-                  La descripción es requerida
-              </span>
-          </mat-form-field>
+        <div class="row" style="margin-top: 3%; margin-left: auto; margin-right: auto; max-width: fit-content;">
+          <div mat-dialog-actions>
+              <button mat-raised-button 
+                            type="submit" 
+                            color="primary" 
+                            [disabled]="formRegistrar.invalid"
+                            [mat-dialog-close]="1"
+                            (click)="registra()">Registra
+              </button>
+          </div>
         </div>
       </div>
-  
-  
-      <div class="row" style="margin-top: 3%; margin-left: auto; margin-right: auto; max-width: fit-content;">
-        <div mat-dialog-actions>
-        <button mat-raised-button 
-                       type="submit" 
-                       color="primary" 
-  
-                       [mat-dialog-close]="1"
-                       (click)="registra()">Registra
-        </button>
-  
-       </div>
-        </div>
-    </div>
     </form>
   </div>
   

@@ -8,12 +8,17 @@
         </div>
   
         <div class="row" style="margin-top: 3%">
-          <mat-form-field class="col-md-4">
+          <mat-form-field class="col-md-12">
             <mat-label>Nombre Completo</mat-label>
             <input matInput formControlName="validaNombres" [(ngModel)]="autor.nombreCompleto">
-            <span *ngIf="formRegistrar.controls.validaNombres.hasError('required')">
-              La descripción es requerida
-            </span>
+            <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaNombres.touched">
+              <span *ngIf="formRegistrar.controls.validaNombres.hasError('required')">
+                La descripción es requerida
+              </span>
+              <span *ngIf="formRegistrar.controls.validaNombres.hasError('existeNombre')">
+                El autor ya se encuentra registrado.
+              </span>
+            </mat-hint>
           </mat-form-field>
         </div>
   
@@ -22,6 +27,7 @@
             <button mat-raised-button 
                     type="submit" 
                     color="primary" 
+                    [disabled]="formRegistrar.invalid"
                     [mat-dialog-close]="1"
                     (click)="registra()">Registrar
             </button>
