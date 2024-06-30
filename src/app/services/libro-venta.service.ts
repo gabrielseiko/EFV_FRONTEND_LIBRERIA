@@ -16,6 +16,11 @@ export class LibroVentaService {
     return this.http.get(baseUrlAPI+"/venta");
   }
 
+  //lista libros por categoria
+  listaLibrosVentaPorCategoria(categoria: any):Observable<LibroVenta[]>{
+    return this.http.get<LibroVenta[]>(baseUrlAPI + '/listaLibroVentaPorCategoria/' + categoria);
+  }
+
   //CRUD de LibroVenta
   registrarCrud(data:LibroVenta):Observable<any>{
     return this.http.post(baseUrlAPI+"/registraLibroVenta", data);

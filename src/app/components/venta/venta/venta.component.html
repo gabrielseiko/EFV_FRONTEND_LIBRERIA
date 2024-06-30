@@ -1,1 +1,43 @@
-<p>venta works!</p>
+<app-menu></app-menu>
+<div class="container">
+    <div class="row">
+        <mat-toolbar color="primary">
+            <span>Venta</span>
+        </mat-toolbar>
+    </div>
+    <div class="row" >
+        <div class="col-lg-3">
+            <div class="list-group ">
+                <a class="list-group-item list-group-item-action " (click)="listarProductos()"
+                    [class.active]="cat == null">Todos
+                </a>
+                <a *ngFor="let c of categorias" class="list-group-item list-group-item-action "
+                    (click)="seleccionarCategoria(c)" [class.active]="c == cat">{{c.descripcion}}
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <h3>{{Titulo}}</h3>
+            <div class="row">
+                <div *ngFor="let l of libros" class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-90 ">
+                        <a href="#"><img class="card-img-top rounded mx-auto d-block" src="{{l.libro?.imagen}}" alt=""
+                                style="width: 70%;"></a>
+                        <div class="card-body d-flex">
+                            <div>
+                                <h4 class="card-title">
+                                    <a class="list-group-item">{{l.libro?.titulo}}</a>
+                                </h4>
+                                <h5 class="card-text">{{l.precio| currency:'S/ ' }}</h5>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-outline-secondary btn-block float-end"><i
+                                    class="bi bi-bag-check"></i> Comprar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
