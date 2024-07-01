@@ -16,6 +16,10 @@ export class LibroVentaService {
     return this.http.get(baseUrlAPI+"/venta");
   }
 
+  listarDisponibles():Observable<any>{
+    return this.http.get(baseUrlAPI+"/librosVentaDisponible");
+  }
+
   //lista libros por categoria
   listaLibrosVentaPorCategoria(categoria: any):Observable<LibroVenta[]>{
     return this.http.get<LibroVenta[]>(baseUrlAPI + '/listaLibroVentaPorCategoria/' + categoria);

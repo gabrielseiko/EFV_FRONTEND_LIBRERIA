@@ -8,26 +8,60 @@ import { Categoria } from '../../../models/categoria.model';
 import { LibroReservaService } from '../../../services/libro-reserva.service';
 import { CategoriaService } from '../../../services/categoria.service';
 import { TokenService } from '../../../security/token.service';
+import { Reserva } from '../../../models/reserva.model';
+import { ReservaService } from '../../../services/reserva.service';
+import { Usuario } from '../../../models/usuario.model';
+import Swal from 'sweetalert2';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-reserva',
   standalone: true,
-  imports: [AppMaterialModule, FormsModule, CommonModule, MenuComponent, ReactiveFormsModule],
+  imports: [AppMaterialModule, FormsModule, CommonModule, MenuComponent, ReactiveFormsModule, MatListModule],
   templateUrl: './reserva.component.html',
   styleUrl: './reserva.component.css'
 })
 export class ReservaComponent {
+  reserva:Reserva = {
+    libro: {
+      idLibroReserva: -1,
+    },
+    usuario: {
+      idUsuario: -1
+    }
+  };
+
+  libroReserva: LibroReserva = {
+    stock: 0,
+    libro: {
+      idLibro: -1,
+    }
+  };
+
   libros: LibroReserva[] = []
   categorias: Categoria[] = []
   cat: Categoria | undefined;
   Titulo: String = "Libros disponibles";
   idCat: number = 0;
 
+  // Usuario en sesión
+  objUsuario: Usuario = {};
+
   constructor(private libroReservaService: LibroReservaService,
     private categoriaService: CategoriaService,
+    private reservaService: ReservaService,
     private tokenService: TokenService) {
-    this.libroReservaService.listar().subscribe(x => this.libros = x),
+      this.libroReservaService.listar().subscribe(x => this.libros = x),
       this.categoriaService.listar().subscribe(x => { this.categorias = x });
+    
+  }
+
+  ngOnInit() {
+    console.log(">>> OnInit [inicio]");
+    
+    this.objUsuario.idUsuario = this.tokenService.getUserId();
+    console.log(">>> OnInit >>> 1 >> " + this.libros);
+    console.log(">>> OnInit [fin]");
   }
 
   seleccionarCategoria(categoria: Categoria) {
@@ -42,8 +76,30 @@ export class ReservaComponent {
 
   listarProductos() {
     this.cat = undefined;
-    this.libroReservaService.listar().subscribe(x => this.libros = x);
+    this.libroReservaService.listarDisponibles().subscribe(x => this.libros = x);
     this.Titulo = "Libros disponibles";
+  }
+
+  agregarReserva(libro:LibroReserva){
+    this.reserva.usuario = { idUsuario: this.tokenService.getUserId() };
+    this.reserva.libro = { idLibroReserva: libro.idLibroReserva };
+    console.log(libro)
+    console.log(libro.idLibroReserva)
+    console.log(this.reserva)
+
+    this.reservaService.registrarReserva(this.reserva).subscribe(
+      x => {
+        Swal.fire({ icon: 'success', title: 'Resultado del Registro', text: x.mensaje, });
+        this.reserva = {
+          libro: {
+            idLibroReserva: -1,
+          },
+          usuario: {
+            idUsuario: -1
+          }
+        }
+      }
+    );
   }
 
 }
