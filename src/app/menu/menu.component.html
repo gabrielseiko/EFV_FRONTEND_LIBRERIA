@@ -51,6 +51,16 @@
         </div>
       </li>
 
+      <!-- Menú Consulta Clientes -->
+      <li class="nav-item dropdown" *ngIf="isLogged && opcTransacciones.length > 0">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTransacciones" role="button" data-toggle="dropdown" aria-expanded="false">
+          Consulta
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownTransacciones">
+          <a class="dropdown-item" *ngFor="let opcion of opcConsultas" [routerLink]="['/' + opcion.ruta]">{{ opcion.descripcion }}</a>
+        </div>
+      </li>
+
     </ul>
   </div>
 </nav>

@@ -13,6 +13,7 @@ import { ReservaComponent } from './components/reserva/reserva/reserva.component
 import { VentaComponent } from './components/venta/venta/venta.component';
 import { ReporteReservaComponent } from './components/reporte/reporte-reserva/reporte-reserva.component';
 import { ReporteVentaComponent } from './components/reporte/reporte-venta/reporte-venta.component';
+import { ConsultaReservaComponent } from './components/reserva/consulta/consulta-reserva/consulta-reserva.component';
 
 export const routes: Routes = [
     { path: 'verCrudAutor', component: AutorListarComponent },
@@ -27,6 +28,7 @@ export const routes: Routes = [
     { path: 'verReporteVentas', component:ReporteVentaComponent},
     { path: 'verReserva', component:ReservaComponent},
     { path: 'verVenta', component:VentaComponent},
+    { path: 'verReservaCliente', component:ConsultaReservaComponent},
 
     { path: '', component: IndexComponent },
     { path: 'login', component: LoginComponent },

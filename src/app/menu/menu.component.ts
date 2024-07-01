@@ -19,6 +19,7 @@ export class MenuComponent implements OnInit {
   opcCRUD : Enlace[] = [];
   opcTransacciones : Enlace[] = [];
   opcReportes : Enlace[] = [];
+  opcConsultas : Enlace[] = [];
 
   constructor(private tokenService: TokenService) {
     console.log("MenuComponent >>> constructor >>> " + this.tokenService.getToken());
@@ -30,6 +31,7 @@ export class MenuComponent implements OnInit {
     this.opcCRUD = this.tokenService.getOpciones().filter( x => x.tipo === 1);
     this.opcReportes = this.tokenService.getOpciones().filter( x => x.tipo === 2);
     this.opcTransacciones = this.tokenService.getOpciones().filter( x => x.tipo === 3);
+    this.opcConsultas = this.tokenService.getOpciones().filter( x => x.tipo === 4);
    
 
     console.log("MenuComponent >>> ngOnInit >>> " + this.tokenService.getToken());

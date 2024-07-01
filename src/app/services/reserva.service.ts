@@ -17,6 +17,11 @@ export class ReservaService {
     return this.http.get(baseUrlAPI);
   }
 
+  //lista reserva por cliente
+  listaReservasCliente(cliente: any):Observable<Reserva[]>{
+    return this.http.get<Reserva[]>(baseUrlAPI + '/listaReservasPorCliente/' + cliente);
+  }
+
   //CRUD de Reserva
   registrarReserva(data:Reserva):Observable<any>{
     return this.http.post(baseUrlAPI+"/registrarReserva", data);

@@ -9,11 +9,12 @@ import { LibroVentaService } from '../../../services/libro-venta.service';
 import { CategoriaService } from '../../../services/categoria.service';
 import { TokenService } from '../../../security/token.service';
 import { LibroService } from '../../../services/libro.service';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-venta',
   standalone: true,
-  imports: [AppMaterialModule, FormsModule, CommonModule, MenuComponent, ReactiveFormsModule],
+  imports: [AppMaterialModule, FormsModule, CommonModule, MenuComponent, ReactiveFormsModule,MatListModule],
   templateUrl: './venta.component.html',
   styleUrl: './venta.component.css'
 })
@@ -43,7 +44,7 @@ export class VentaComponent {
 
   listarProductos(){
     this.cat = undefined;
-    this.libroVentaService.listar().subscribe(x => this.libros = x);
+    this.libroVentaService.listarDisponibles().subscribe(x => this.libros = x);
     this.Titulo = "Libros disponibles";
   }
 

@@ -1,0 +1,38 @@
+<app-menu></app-menu>
+<div class="container">
+    <div class="row">
+        <mat-toolbar color="primary">
+            <span>Mis Reservas</span>
+        </mat-toolbar>
+    </div>
+    <div class="mat-elevation-z8" >
+        <table mat-table  [dataSource]="dataSource">
+            <ng-container matColumnDef="idPrestamo">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>Código</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.idPrestamo }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="libro">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>Libro</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.libro.libro.titulo}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="fechaReserva">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>Fecha de Reserva</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.fechaReserva}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="fechaDevolucion">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>Fecha de Devolución</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.fechaDevolucion}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="estado">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.estado == 1 ? "Prestado" : "Devuelto" }}</mat-cell>
+            </ng-container>
+        
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let aux; columns: displayedColumns"></mat-row>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
+
+    </div>
+
+</div>
